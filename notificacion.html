@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<body>
+<h2>MOTICDOR</h2>
+<div>
+  <!--<div>
+      <label>Nombre</label>
+      <input type="text" id="usuario" placeholder="usuario" />
+  </div>
+    <div>
+      <label>Mensaje</label>
+      <input type="text" id="mensaje" placeholder="mensaje" />
+  </div>
+      <div>
+      <button id="enviar">Enviar</button>
+     </div>-->
+     <hr/>
+      <label>Notificaciones    </label>
+     <br/>
+	 <button id="enviar">Enviar</button>
+	  <hr/>
+	  
+     <code id="conversacion"></code> 
+     
+</div>
+
+<script type="text/javascript" >
+
+
+
+
+(function(window,document,JSON){
+	
+	var url="wss://192.168.100.163:8585/wsAval2/aval?userName=426";
+	ws= new WebSocket(url); 
+	mensajes=document.getElementById("conversacion");
+    btn=document.getElementById("enviar");
+	
+	//usuario=document.getElementById("usuario");
+	//mensaje=document.getElementById("mensaje");
+	
+	
+	ws.onopen=onOpen;
+	ws.onclose=onClose;
+	ws.onmessage=onMessage;
+	
+	btn.addEventListener("click",enviar);
+	
+	function onOpen(){
+		
+		console.log("conectado....");
+		
+	}
+	function onClose(){
+		
+		console.log("desconectado....");
+	}
+	
+	
+	function enviar(){
+		
+		var msg={events:"logueo",user:"jimy",message:"jajajaja",data:{}};
+		console.log(JSON.stringify(msg));
+		ws.send(JSON.stringify(msg));
+	}
+	
+	function onMessage(e){
+	  console.log
+		//var obj=JSON.parse(e.data);
+		msg=e.data;//"Nombre : " + obj.nombre +" dice: "+obj.mensaje;
+		mensajes.innerHTML+=msg+"<br/><br/>";
+		
+	}
+	
+})(window,document,JSON)
+
+</script>
+
+
+
+</body>
+</html>
